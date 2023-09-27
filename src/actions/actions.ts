@@ -18,5 +18,18 @@ const timeSeriesData : TimeSeries[] = [];
  return timeSeriesData;
 }
 
+//  counting number of times each end point is called
+const countEndPointCalls = (timeSeriesData:TimeSeries[]):  ({end_point: string; count: number}[])=> {
+    const countAPICalls: {[path:string]: {end_point: string; count: number}} = {};
+    timeSeriesData.forEach((dataPoint) => {
+        const line = dataPoint.line;
+        const urlMatch = line.match(/https?:\/\/[^\s]+/);
+        if(urlMatch){
+            const path: string = (new URL(urlMatch[0])).pathname;
+                countAPICalls[path] = {end_point: path, count: (countAPICalls[path]?.count || 0) + 1}
+            }
+        })
+    return Object.values(countAPICalls);
+}
 
-module.exports = {getTimeSeriesData}
+module.exports = {getTimeSeriesData, countEndPointCalls}

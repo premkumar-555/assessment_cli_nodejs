@@ -2,7 +2,7 @@ const {Command} = require('commander')
 const figlet = require('figlet')
 const path = require("path")
 const readTextFile = require("./actions/ReadFile")
-const {getTimeSeriesData, TimeSeries} = require('./actions/actions')
+const {getTimeSeriesData, countEndPointCalls} = require('./actions/actions')
 // Initiating CLI program with options
 const program = new Command();
 
@@ -19,7 +19,7 @@ const options = program.opts();
 
 if(options.epc){
   const data = readTextFile(path.resolve(options.epc));
-   console.log(data)
+   console.table(countEndPointCalls(data))
 }
 if(options.pmc){
     console.log('pmc')

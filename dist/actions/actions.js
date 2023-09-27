@@ -14,5 +14,19 @@ const getTimeSeriesData = (content) => {
     });
     return timeSeriesData;
 };
-module.exports = { getTimeSeriesData };
+//  counting number of times each end point is called
+const countEndPointCalls = (timeSeriesData) => {
+    const countAPICalls = {};
+    timeSeriesData.forEach((dataPoint) => {
+        var _a;
+        const line = dataPoint.line;
+        const urlMatch = line.match(/https?:\/\/[^\s]+/);
+        if (urlMatch) {
+            const path = (new URL(urlMatch[0])).pathname;
+            countAPICalls[path] = { end_point: path, count: (((_a = countAPICalls[path]) === null || _a === void 0 ? void 0 : _a.count) || 0) + 1 };
+        }
+    });
+    return Object.values(countAPICalls);
+};
+module.exports = { getTimeSeriesData, countEndPointCalls };
 //# sourceMappingURL=actions.js.map
