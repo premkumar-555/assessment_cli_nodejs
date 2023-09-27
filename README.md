@@ -1,21 +1,3 @@
-<svg width="400" height="200" xmlns="http://www.w3.org/2000/svg">
-  <!-- Define the text to be animated -->
-  <text x="10" y="100" font-family="Arial" font-size="24" fill="black" id="welcome-text">
-    Welcome to Log Digestor!
-  </text>
-  
-  <!-- Define the animation -->
-  <animate
-    xlink:href="#welcome-text"
-    attributeName="opacity"
-    from="0"
-    to="1"
-    dur="2s"
-    begin="0s"
-    repeatCount="indefinite"
-  />
-</svg>
-
 # Log Digestor
 
 **Log Digestor** is a Node.js TypeScript CLI application for abstracting API log data.
