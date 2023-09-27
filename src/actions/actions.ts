@@ -44,4 +44,20 @@ const   countAPICallsPerMinute = (timeSeriesData: TimeSeries[]) : ({time: string
     return Object.values(apiCallsPerMinute);
 }
 
-module.exports = {getTimeSeriesData, countEndPointCalls, countAPICallsPerMinute}
+// count total api calls for each http status code 
+const countAPICallsForStatus = (timeSeriesData: TimeSeries[]) : ({status_code: string, count: number}[]) => {
+    const httpStatusCounts : { [statusCode: string]: {status_code: string, count: number} } = {};
+    timeSeriesData.forEach(async(dataPoint) => {
+        const line = dataPoint.line;
+        const statusCodeRegex = /" (\d{3}) /;
+        const matches = statusCodeRegex.exec(line);
+        if(matches && matches.length > 1){
+            const statusCode = (matches[1])
+            // console.log(statusCode)
+            httpStatusCounts[statusCode] = {status_code: statusCode, count: (httpStatusCounts[statusCode]?.count || 0) + 1}
+        }
+    })
+    return Object.values(httpStatusCounts);
+}
+
+module.exports = {getTimeSeriesData, countEndPointCalls, countAPICallsForStatus, countAPICallsPerMinute}

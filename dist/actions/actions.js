@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const url = require('url');
 const fs = require('fs');
 // creation of time series data 
@@ -39,5 +48,21 @@ const countAPICallsPerMinute = (timeSeriesData) => {
     });
     return Object.values(apiCallsPerMinute);
 };
-module.exports = { getTimeSeriesData, countEndPointCalls, countAPICallsPerMinute };
+// count total api calls for each http status code 
+const countAPICallsForStatus = (timeSeriesData) => {
+    const httpStatusCounts = {};
+    timeSeriesData.forEach((dataPoint) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a;
+        const line = dataPoint.line;
+        const statusCodeRegex = /" (\d{3}) /;
+        const matches = statusCodeRegex.exec(line);
+        if (matches && matches.length > 1) {
+            const statusCode = (matches[1]);
+            // console.log(statusCode)
+            httpStatusCounts[statusCode] = { status_code: statusCode, count: (((_a = httpStatusCounts[statusCode]) === null || _a === void 0 ? void 0 : _a.count) || 0) + 1 };
+        }
+    }));
+    return Object.values(httpStatusCounts);
+};
+module.exports = { getTimeSeriesData, countEndPointCalls, countAPICallsForStatus, countAPICallsPerMinute };
 //# sourceMappingURL=actions.js.map

@@ -3,7 +3,7 @@ const { Command } = require('commander');
 const figlet = require('figlet');
 const path = require("path");
 const readTextFile = require("./actions/ReadFile");
-const { getTimeSeriesData, countEndPointCalls, countAPICallsPerMinute } = require('./actions/actions');
+const { getTimeSeriesData, countEndPointCalls, countAPICallsPerMinute, countAPICallsForStatus } = require('./actions/actions');
 // Initiating CLI program with options
 const program = new Command();
 program
@@ -24,6 +24,7 @@ if (options.pmc) {
     console.table(countAPICallsPerMinute(data));
 }
 if (options.scc) {
-    console.log('scc');
+    const data = readTextFile(path.resolve(options.scc));
+    console.table(countAPICallsForStatus(data));
 }
 //# sourceMappingURL=index.js.map
