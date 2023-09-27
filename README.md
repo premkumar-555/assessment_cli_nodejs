@@ -19,26 +19,32 @@ Follow these instructions to run the application:
    ```
 2. Change directory to the project folder::
 
-   ```cd unomok_cli/
+   ```bash
+   cd unomok_cli/
    ```
 3. Install the necessary dependencies:
 
-   ```npm install
+   ```bash
+   npm install
    ```
 4. To get information about the application and learn about the available command lines, use:
 
-   ```log -h
+   ```bash
+   log -h
    ```
    
 5. The following command lines are available for their respective tasks:
 
 - To print which endpoint is called how many times:
- ```log -epc <path\to\the\logfile>
+ ```bash
+ log -epc <path\to\the\logfile>
    ```
 - To print how many API calls were made on a per-minute basis:
- ```log -pmc <path\to\the\logfile>
+ ```bash
+ log -pmc <path\to\the\logfile>
    ```
 - To print how many API calls there are in total for each HTTP status code:
- ```log -scc <path\to\the\logfile>
+ ```bash
+ log -scc <path\to\the\logfile>
    ```
 
