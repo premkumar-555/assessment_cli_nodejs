@@ -32,4 +32,16 @@ const countEndPointCalls = (timeSeriesData:TimeSeries[]):  ({end_point: string; 
     return Object.values(countAPICalls);
 }
 
-module.exports = {getTimeSeriesData, countEndPointCalls}
+// count of API calls made on per minute basis
+const   countAPICallsPerMinute = (timeSeriesData: TimeSeries[]) : ({time: string, count:number}[]) => {
+    const apiCallsPerMinute :  {[minute: string]: {time: string, count:number}} = {};
+    timeSeriesData.forEach((dataPoint) => {
+        const timeStamp = dataPoint.timeStamp;
+        const minute = timeStamp.toISOString().substring(0, 16);
+        apiCallsPerMinute [minute]= {time: timeStamp.toISOString(), count: (apiCallsPerMinute[minute]?.count || 0) + 1};
+    })
+
+    return Object.values(apiCallsPerMinute);
+}
+
+module.exports = {getTimeSeriesData, countEndPointCalls, countAPICallsPerMinute}

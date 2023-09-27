@@ -28,5 +28,16 @@ const countEndPointCalls = (timeSeriesData) => {
     });
     return Object.values(countAPICalls);
 };
-module.exports = { getTimeSeriesData, countEndPointCalls };
+// count of API calls made on per minute basis
+const countAPICallsPerMinute = (timeSeriesData) => {
+    const apiCallsPerMinute = {};
+    timeSeriesData.forEach((dataPoint) => {
+        var _a;
+        const timeStamp = dataPoint.timeStamp;
+        const minute = timeStamp.toISOString().substring(0, 16);
+        apiCallsPerMinute[minute] = { time: timeStamp.toISOString(), count: (((_a = apiCallsPerMinute[minute]) === null || _a === void 0 ? void 0 : _a.count) || 0) + 1 };
+    });
+    return Object.values(apiCallsPerMinute);
+};
+module.exports = { getTimeSeriesData, countEndPointCalls, countAPICallsPerMinute };
 //# sourceMappingURL=actions.js.map
