@@ -2,10 +2,6 @@
 
 **Log Digestor** is a Node.js TypeScript CLI application for abstracting API log data.
 
-## Description
-
-Log Digestor is a Node.js TypeScript CLI application for abstracting API log data.
-
 ## Libraries Used
 
 - **commander**: Used for creating CLI options and command lines.
@@ -20,3 +16,29 @@ Follow these instructions to run the application:
 
    ```bash
    git clone https://github.com/premkumar-555/unomok_cli.git
+   ```
+2. Change directory to the project folder::
+
+   ```cd unomok_cli/
+   ```
+3. Install the necessary dependencies:
+
+   ```npm install
+   ```
+4. To get information about the application and learn about the available command lines, use:
+
+   ```log -h
+   ```
+   
+5. The following command lines are available for their respective tasks:
+
+- To print which endpoint is called how many times:
+ ```log -epc <path\to\the\logfile>
+   ```
+- To print how many API calls were made on a per-minute basis:
+ ```log -pmc <path\to\the\logfile>
+   ```
+- To print how many API calls there are in total for each HTTP status code:
+ ```log -scc <path\to\the\logfile>
+   ```
+
