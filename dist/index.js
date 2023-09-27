@@ -3,7 +3,7 @@ const { Command } = require('commander');
 const figlet = require('figlet');
 const path = require("path");
 const readTextFile = require("./actions/ReadFile");
-console.log(figlet.textSync("Dir Manager"));
+const { getTimeSeriesData, TimeSeries } = require('./actions/actions');
 // Initiating CLI program with options
 const program = new Command();
 program
@@ -16,8 +16,8 @@ program
 // options
 const options = program.opts();
 if (options.epc) {
-    readTextFile(path.resolve(options.epc));
-    console.log('epc');
+    const data = readTextFile(path.resolve(options.epc));
+    console.log(data);
 }
 if (options.pmc) {
     console.log('pmc');
